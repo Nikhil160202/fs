@@ -1,0 +1,54 @@
+Q1. Create a Simple Web Server using node js.
+Ans:- 
+// Importing required modules
+const http = require('http');
+
+// Creating a server instance
+const server = http.createServer((req, res) => {
+    // Set the response header with a status code of 200 (OK) and content type of text/plain
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+
+    // Sending "Hello, World!" as the response
+    res.end('Hello, World!\n');
+});
+
+// Define the port on which the server will listen
+const port = 3000;
+
+// Start the server and make it listen for incoming requests
+server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+});
+
+Q2. Create a Node.js file that opens the requested file and returns the content to the client If anything goes wrong, throw a 404 error
+
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+// Create a server instance
+const server = http.createServer((req, res) => {
+    // Get the requested file path
+    const filePath = path.join(__dirname, req.url);
+
+    // Read the file from the filesystem
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            // If file not found or any other error, send a 404 response
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.end('404 Not Found');
+        } else {
+            // If file found, send its content as response
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end(data);
+        }
+    });
+});
+
+// Define the port on which the server will listen
+const port = 3000;
+
+// Start the server and make it listen for incoming requests
+server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+});

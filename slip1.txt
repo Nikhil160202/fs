@@ -1,0 +1,139 @@
+Create an HTML form for Login and write a JavaScript to validate email ID and Password using Regular Expression
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<style>
+  .error {
+    color: red;
+  }
+</style>
+</head>
+<body>
+
+<h2>Login Form</h2>
+
+<form id="loginForm" onsubmit="return validateForm()">
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <span id="emailError" class="error"></span>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <span id="passwordError" class="error"></span>
+  </div>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+function validateForm() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+  let valid = true;
+
+  if (!emailPattern.test(email)) {
+    document.getElementById('emailError').innerText = "Invalid email address";
+    valid = false;
+  } else {
+    document.getElementById('emailError').innerText = "";
+  }
+
+  if (!passwordPattern.test(password)) {
+    document.getElementById('passwordError').innerText = "Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and be at least 6 characters long";
+    valid = false;
+  } else {
+    document.getElementById('passwordError').innerText = "";
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>
+
+
+ Create an HTML form that contain the Student Registration details and write a JavaScript to
+validate Student first and last name as it should not contain other than alphabets and age should
+be between 18 to 50.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration Form</title>
+<style>
+  .error {
+    color: red;
+  }
+</style>
+</head>
+<body>
+
+<h2>Student Registration Form</h2>
+
+<form id="registrationForm" onsubmit="return validateForm()">
+  <div>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <span id="firstNameError" class="error"></span>
+  </div>
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+    <span id="lastNameError" class="error"></span>
+  </div>
+  <div>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required>
+    <span id="ageError" class="error"></span>
+  </div>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+function validateForm() {
+  const firstName = document.getElementById('firstName').value;
+  const lastName = document.getElementById('lastName').value;
+  const age = parseInt(document.getElementById('age').value);
+
+  const namePattern = /^[a-zA-Z]+$/;
+  const validAgeRange = age >= 18 && age <= 50;
+
+  let valid = true;
+
+  if (!namePattern.test(firstName)) {
+    document.getElementById('firstNameError').innerText = "First name should contain only alphabets";
+    valid = false;
+  } else {
+    document.getElementById('firstNameError').innerText = "";
+  }
+
+  if (!namePattern.test(lastName)) {
+    document.getElementById('lastNameError').innerText = "Last name should contain only alphabets";
+    valid = false;
+  } else {
+    document.getElementById('lastNameError').innerText = "";
+  }
+
+  if (!validAgeRange) {
+    document.getElementById('ageError').innerText = "Age should be between 18 and 50";
+    valid = false;
+  } else {
+    document.getElementById('ageError').innerText = "";
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>
+

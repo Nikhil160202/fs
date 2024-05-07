@@ -1,0 +1,78 @@
+Create a Simple Web Server using node js
+const http = require('http');
+
+// Create a server object
+const server = http.createServer((req, res) => {
+  // Set the response header
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+
+  // Send the response body
+  res.end('Hello World!\n');
+});
+
+// Specify the port number
+const PORT = process.env.PORT || 3000;
+
+// Start the server, listening on the specified port
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+
+Using angular js display the 10 student details in Table format (using ng-repeat directive use
+Array to store data)
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="StudentController">
+
+  <h2>Student Details</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="student in students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.grade }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    var app = angular.module('studentApp', []);
+
+    app.controller('StudentController', function($scope) {
+      // Array to store student details
+      $scope.students = [
+        { id: 1, name: 'John', age: 20, grade: 'A' },
+        { id: 2, name: 'Alice', age: 22, grade: 'B' },
+        { id: 3, name: 'Bob', age: 21, grade: 'C' },
+        { id: 4, name: 'Sarah', age: 19, grade: 'A' },
+        { id: 5, name: 'Michael', age: 20, grade: 'B' },
+        { id: 6, name: 'Emily', age: 23, grade: 'C' },
+        { id: 7, name: 'David', age: 22, grade: 'A' },
+        { id: 8, name: 'Emma', age: 18, grade: 'B' },
+        { id: 9, name: 'Ryan', age: 21, grade: 'C' },
+        { id: 10, name: 'Sophia', age: 20, grade: 'A' }
+      ];
+    });
+  </script>
+
+</body>
+</html>
+

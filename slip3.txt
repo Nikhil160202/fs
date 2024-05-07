@@ -1,0 +1,94 @@
+Using node js create a User Login System.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form action="/login" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const users = require('./users');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/login.html');
+});
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(user => user.username === username);
+
+  if (!user) {
+    return res.status(400).send('User not found');
+  }
+
+  if (!bcrypt.compareSync(password, user.password)) {
+    return res.status(401).send('Invalid password');
+  }
+
+  res.send('Login successful');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+Create a node.js file that Select all records from the "Teacher" table, and find the Teachers
+whose salary is greater than 20,000.
+const mysql = require('mysql');
+
+// Create a connection to the MySQL database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database_name'
+});
+
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to the database');
+});
+
+// Select all records from the Teacher table where salary is greater than 20,000
+const sql = 'SELECT * FROM Teacher WHERE salary > 20000';
+
+// Execute the SQL query
+connection.query(sql, (err, results) => {
+  if (err) {
+    console.error('Error executing query:', err);
+    return;
+  }
+  console.log('Teachers with salary greater than 20,000:');
+  console.log(results);
+});
+
+// Close the database connection
+connection.end();
+
+
+

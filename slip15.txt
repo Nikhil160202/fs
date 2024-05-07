@@ -1,0 +1,126 @@
+Create a node.js file that Select all records from the "students" table, and display the result
+object on console
+const mysql = require('mysql');
+
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database_name'
+});
+
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to database');
+
+  // Perform the SQL query to select all records from the "students" table
+  const sql = 'SELECT * FROM students';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      connection.end(); // Close the connection
+      return;
+    }
+
+    // Display the result object on the console
+    console.log('Result:', results);
+
+    // Close the connection
+    connection.end();
+  });
+});
+
+
+
+Create an HTML form for Employee and write a JavaScript to validate name, email ID, mobile
+number, department, joining date using Regular Expression.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Form</title>
+</head>
+<body>
+    <h2>Employee Registration Form</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" title="Mobile number should contain 10 digits"><br><br>
+
+        <label for="department">Department:</label>
+        <select id="department" name="department" required>
+            <option value="">Select department</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="IT">IT</option>
+            <option value="Marketing">Marketing</option>
+        </select><br><br>
+
+        <label for="joiningDate">Joining Date:</label>
+        <input type="date" id="joiningDate" name="joiningDate" required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Regular expressions for validation
+            const nameRegex = /^[a-zA-Z ]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const mobileRegex = /^[0-9]{10}$/;
+
+            // Get form fields
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mobile = document.getElementById('mobile').value.trim();
+            const department = document.getElementById('department').value;
+            const joiningDate = new Date(document.getElementById('joiningDate').value);
+
+            // Validate Name
+            if (!name.match(nameRegex)) {
+                alert('Please enter a valid name (only alphabets and spaces)');
+                return false;
+            }
+
+            // Validate Email
+            if (!email.match(emailRegex)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+
+            // Validate Mobile Number
+            if (!mobile.match(mobileRegex)) {
+                alert('Please enter a valid 10-digit mobile number');
+                return false;
+            }
+
+            // Validate Department
+            if (department === '') {
+                alert('Please select a department');
+                return false;
+            }
+
+            // Validate Joining Date
+            if (isNaN(joiningDate.getTime())) {
+                alert('Please enter a valid Joining Date');
+                return false;
+            }
+
+            // If all fields are valid, form submission is allowed
+            return true;
+        }
+    </script>
+</body>
+</html>
+
